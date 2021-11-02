@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "papeleria")
@@ -18,6 +22,11 @@ public class Papeleria implements Serializable {
   private String name;
   private Integer price;
   private String description;
+
+  @ManyToOne
+  @JoinColumn(name = "categoriaId")
+  @JsonIgnoreProperties("papelerias")
+  private Categoria categoria;
 
   public Integer getId() {
     return id;
@@ -49,6 +58,14 @@ public class Papeleria implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Categoria getCategoria() {
+    return categoria;
+  }
+
+  public void setCategoria(Categoria categoria) {
+    this.categoria = categoria;
   }
 
 }
